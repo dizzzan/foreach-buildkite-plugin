@@ -12,7 +12,8 @@ OUT=$'steps:\n'
 INDENT="  "
 
 for i in $LIST; do
-  OUT+=$(sed "s/{$KEY}/$i/g" <<< "$STEPS" | sed "s/^/${INDENT}/")
+  VALUE="${!i}"
+  OUT+=$(sed "s/{${KEY}}/${VALUE}/g" <<< "$STEPS" | sed "s/^/${INDENT}/")
   OUT+=$'\n'
     if [ "$WAIT" == "true" ]; then
         OUT+="${INDENT}"+'- wait\n'
