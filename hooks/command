@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 set -eu -o pipefail
 
-echo $BUILDKITE_PLUGIN_FOREACH_FOREACH
 env
+
+LIST="${!BUILDKITE_PLUGIN_FOREACH_FOREACH_@}"
+KEY="$BUILDKITE_PLUGIN_FOREACH_KEY"
+STEPS=$(<$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_PLUGIN_FOREACH_STEPS)
+WAIT="${BUILDKITE_PLUGIN_FOREACH_WAIT_BETWEEN:-false}"
+
+OUT=$'steps:\n'
+INDENT="  "
+
+for i in $LIST; do
+  OUT+=$(sed "s/{$KEY}/$i/g" <<< "$STEPS" | sed "s/^/${INDENT}/")
+  OUT+=$'\n'
+    if [ "$WAIT" == "true" ]; then
+        OUT+="${INDENT}"+'- wait\n'
+    fi
+done
+
+echo "$OUT" | buildkite-agent pipeline upload
