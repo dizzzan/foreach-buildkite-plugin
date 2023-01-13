@@ -13,8 +13,8 @@ steps:
         steps: my-steps.yml
         key: env
         foreach:
-          - dev
           - qa
+          - stage
           - prod
         wait_between: true
 ```
