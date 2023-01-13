@@ -1,0 +1,20 @@
+name: Foreach Loop
+description: Duplicates a set of pipeline steps
+author: https://github.com/dizzzan
+requirements: ["bash"]
+configuration:
+  properties:
+    foreach:
+      type: [string, array]
+    key:
+      type: string
+      default: key
+    steps:
+      type: string
+    wait_between:
+      type: boolean
+      default: false
+  required:
+    - foreach
+    - steps
+  additionalProperties: false
