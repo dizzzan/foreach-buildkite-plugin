@@ -13,7 +13,6 @@ configuration:
       type: string
     wait_between:
       type: boolean
-      default: false
   required:
     - foreach
     - steps
