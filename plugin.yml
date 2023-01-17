@@ -1,4 +1,4 @@
-name: Foreach Loop
+name: foreach
 description: Duplicates a set of pipeline steps
 author: https://github.com/dizzzan
 requirements: ["bash"]
